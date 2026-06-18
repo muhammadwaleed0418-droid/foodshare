@@ -6,7 +6,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   userRegistrationSchema,
@@ -33,7 +33,7 @@ export function RegisterFormModern() {
     formState: { errors },
     watch,
   } = useForm<UserRegistrationInput>({
-    resolver: zodResolver(userRegistrationSchema),
+    resolver: zodResolver(userRegistrationSchema as any) as unknown as Resolver<UserRegistrationInput>,
     defaultValues: {
       role: UserRole.DONOR,
     },
