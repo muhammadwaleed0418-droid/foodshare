@@ -1,0 +1,248 @@
+/**
+ * Prisma Schema for Food Share Application
+ * Alternative to Mongoose - uncomment to use instead
+ * 
+ * Usage:
+ * 1. npm install @prisma/client
+ * 2. npm install -D prisma
+ * 3. npx prisma init
+ * 4. Update .env with DATABASE_URL
+ * 5. npx prisma migrate dev --name init
+ */
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+// }
+
+// enum UserRole {
+//   DONOR
+//   RECEIVER
+//   ADMIN
+//   MODERATOR
+// }
+
+// enum FoodType {
+//   VEGETABLES
+//   FRUITS
+//   GRAINS
+//   DAIRY
+//   MEAT
+//   BAKERY
+//   COOKED
+//   PACKAGED
+//   OTHER
+// }
+
+// enum DonationStatus {
+//   AVAILABLE
+//   RESERVED
+//   PICKED_UP
+//   EXPIRED
+//   CANCELLED
+//   COMPLETED
+// }
+
+// enum ReservationStatus {
+//   PENDING
+//   CONFIRMED
+//   PICKED_UP
+//   CANCELLED
+//   COMPLETED
+//   EXPIRED
+// }
+
+// enum AuditAction {
+//   CREATE
+//   UPDATE
+//   DELETE
+//   LOGIN
+//   LOGOUT
+//   VERIFY
+//   RESERVE
+//   CANCEL
+//   APPROVE
+//   REJECT
+//   REPORT
+// }
+
+// model User {
+//   id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+//   name                  String
+//   email                 String    @unique
+//   password              String
+//   role                  UserRole  @default(DONOR)
+//   phone                 String
+//   address               String
+//   verified              Boolean   @default(false)
+//   profileImage          String?
+//   bio                   String?
+//   rating                Float?    @default(0)
+//   totalDonations        Int       @default(0)
+//   totalReservations     Int       @default(0)
+//   isActive              Boolean   @default(true)
+//   lastLogin             DateTime?
+
+//   // Relations
+//   donations             Donation[]
+//   reservations          Reservation[]
+//   sentMessages          Message[]     @relation("SentMessages")
+//   receivedMessages      Message[]     @relation("ReceivedMessages")
+//   auditLogs             AuditLog[]
+//   conversationUsers     Conversation[]
+
+//   createdAt             DateTime  @default(now())
+//   updatedAt             DateTime  @updatedAt
+
+//   @@index([email])
+//   @@index([verified])
+//   @@index([role])
+//   @@index([isActive])
+//   @@index([createdAt])
+// }
+
+// model Donation {
+//   id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+//   title                 String
+//   description           String
+//   foodType              FoodType[]
+//   quantity              Float
+//   unit                  String    // "kg" | "pieces" | "liters" | "boxes" | "plates"
+//   pickupLocation        PickupLocation
+//   availableFrom         DateTime  @default(now())
+//   availableUntil        DateTime
+//   status                DonationStatus @default(AVAILABLE)
+//   donorId               String    @db.ObjectId
+//   images                String[]
+//   allergens             String[]
+//   expiryDate            DateTime?
+
+//   // Relations
+//   donor                 User      @relation(fields: [donorId], references: [id])
+//   reservations          Reservation[]
+//   relatedMessages       Message[]
+
+//   createdAt             DateTime  @default(now())
+//   updatedAt             DateTime  @updatedAt
+
+//   @@index([donorId])
+//   @@index([status])
+//   @@index([foodType])
+//   @@index([availableUntil])
+//   @@index([createdAt])
+// }
+
+// type PickupLocation {
+//   street      String
+//   city        String
+//   state       String
+//   zipCode     String
+//   latitude    Float?
+//   longitude   Float?
+// }
+
+// model Reservation {
+//   id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+//   donationId            String    @db.ObjectId
+//   receiverId            String    @db.ObjectId
+//   status                ReservationStatus @default(PENDING)
+//   reservedAt            DateTime  @default(now())
+//   pickupDate            DateTime?
+//   pickupTime            String?
+//   notes                 String?
+//   cancelReason          String?
+//   cancelledAt           DateTime?
+//   completedAt           DateTime?
+//   rating                Int?
+//   feedback              String?
+
+//   // Relations
+//   donation              Donation  @relation(fields: [donationId], references: [id])
+//   receiver              User      @relation(fields: [receiverId], references: [id])
+//   relatedMessages       Message[]
+
+//   createdAt             DateTime  @default(now())
+//   updatedAt             DateTime  @updatedAt
+
+//   @@index([donationId])
+//   @@index([receiverId])
+//   @@index([status])
+//   @@index([createdAt])
+// }
+
+// model Message {
+//   id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+//   senderId              String    @db.ObjectId
+//   receiverId            String    @db.ObjectId
+//   content               String
+//   isRead                Boolean   @default(false)
+//   readAt                DateTime?
+//   relatedDonationId     String?   @db.ObjectId
+//   relatedReservationId  String?   @db.ObjectId
+//   attachments           String[]
+
+//   // Relations
+//   sender                User      @relation("SentMessages", fields: [senderId], references: [id])
+//   receiver              User      @relation("ReceivedMessages", fields: [receiverId], references: [id])
+//   conversation          Conversation?
+//   relatedDonation       Donation? @relation(fields: [relatedDonationId], references: [id])
+//   relatedReservation    Reservation? @relation(fields: [relatedReservationId], references: [id])
+
+//   createdAt             DateTime  @default(now())
+//   updatedAt             DateTime  @updatedAt
+
+//   @@index([senderId])
+//   @@index([receiverId])
+//   @@index([isRead])
+//   @@index([createdAt])
+// }
+
+// model Conversation {
+//   id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+//   participants          String[]  @db.ObjectId
+//   lastMessage           String?
+//   lastMessageAt         DateTime?
+//   unreadCount           Json      // { [userId]: count }
+
+//   // Relations
+//   messages              Message[]
+//   users                 User[]    @relation(fields: [participants], references: [id])
+
+//   createdAt             DateTime  @default(now())
+//   updatedAt             DateTime  @updatedAt
+
+//   @@unique([participants])
+//   @@index([lastMessageAt])
+// }
+
+// model AuditLog {
+//   id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+//   action                AuditAction
+//   userId                String    @db.ObjectId
+//   targetId              String
+//   targetType            String    // "user" | "donation" | "reservation" | "message"
+//   changes               Changes?
+//   ipAddress             String?
+//   userAgent             String?
+//   status                String    // "success" | "failure"
+//   errorMessage          String?
+//   timestamp             DateTime  @default(now())
+
+//   // Relations
+//   user                  User      @relation(fields: [userId], references: [id])
+
+//   @@index([userId])
+//   @@index([targetId])
+//   @@index([action])
+//   @@index([status])
+//   @@index([timestamp])
+// }
+
+// type Changes {
+//   before    Json?
+//   after     Json?
+// }
