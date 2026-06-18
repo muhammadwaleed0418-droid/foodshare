@@ -5,7 +5,7 @@
 
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI as string;
 
 if (!MONGODB_URI) {
   throw new Error('MONGODB_URI environment variable is not defined. Please check your .env.local file.');
@@ -55,8 +55,7 @@ async function connectDB() {
         console.error('❌ MongoDB connection failed');
         console.error('Error Type:', error?.name);
         console.error('Error Message:', error?.message);
-        
-        // Provide helpful diagnostics
+
         if (error?.message?.includes('ENOTFOUND')) {
           console.error('⚠️  DNS resolution failed - Check MongoDB URI cluster name');
         } else if (error?.message?.includes('authentication')) {
@@ -64,7 +63,7 @@ async function connectDB() {
         } else if (error?.message?.includes('IP')) {
           console.error('⚠️  IP whitelist issue - Add 0.0.0.0/0 in MongoDB Atlas Network Access');
         }
-        
+
         cached.promise = null;
         throw error;
       });
