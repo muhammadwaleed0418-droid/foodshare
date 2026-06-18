@@ -6,7 +6,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userLoginSchema, type UserLoginInput } from '@/src/lib/validations';
 import { loginUser } from '@/src/actions/auth';
@@ -25,7 +25,7 @@ export function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<UserLoginInput>({
-    resolver: zodResolver(userLoginSchema),
+     resolver: zodResolver(userLoginSchema) as unknown as Resolver<UserLoginInput>,
   });
 
   const onSubmit = async (data: UserLoginInput) => {
