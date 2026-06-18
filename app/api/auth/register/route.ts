@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
         {
           success: true,
           message: 'Registration successful',
-          user: result.user,
+          userId: 'userId' in result ? result.userId : undefined,
         },
         { status: 201 }
       );
@@ -20,14 +20,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: result.message || 'Registration failed',
-          errors: result.errors,
+          message: 'error' in result ? result.error : 'Registration failed',
         },
         { status: 400 }
       );
     }
   } catch (error) {
-    console.error('Register API error:', error);
+    console.error('Registration API error:', error);
     return NextResponse.json(
       {
         success: false,
