@@ -29,7 +29,7 @@ export function RegisterForm() {
     formState: { errors },
     watch,
   } = useForm<UserRegistrationInput>({
-    resolver: zodResolver(userRegistrationSchema) as unknown as Resolver<UserRegistrationInput>,
+resolver: zodResolver(userRegistrationSchema as any) as unknown as Resolver<UserRegistrationInput>,
     defaultValues: {
       role: UserRole.DONOR,
     },

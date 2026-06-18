@@ -25,7 +25,7 @@ export function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<UserLoginInput>({
-     resolver: zodResolver(userLoginSchema) as unknown as Resolver<UserLoginInput>,
+     resolver: zodResolver(userLoginSchema as any) as unknown as Resolver<UserLoginInput>,
   });
 
   const onSubmit = async (data: UserLoginInput) => {
