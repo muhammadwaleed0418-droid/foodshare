@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/src/lib/database';
 import { Reservation, Donation, User } from '@/src/models';
 import { DonationStatus } from '@/src/types';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/src/lib/nextauth.config';
+import { auth } from '@/src/lib/next-auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -64,8 +63,8 @@ export async function POST(request: NextRequest) {
   try {
     await connectDB();
 
-    // Check authentication
-    const session = await getServerSession(authOptions);
+    // Check authentication (v5: auth() instead of getServerSession)
+    const session = await auth();
     if (!session) {
       return NextResponse.json(
         {

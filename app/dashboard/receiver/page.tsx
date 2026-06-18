@@ -92,35 +92,3 @@ export default function ReceiverDashboard() {
     </div>
   );
 }
-            <p className="text-3xl font-bold text-yellow-600 mt-2">⭐ N/A</p>
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">Quick Actions</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link
-              href="/explore-donations"
-              className="block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 text-center"
-            >
-              🔍 Explore Food Donations
-            </Link>
-            <Link
-              href="/reservations"
-              className="block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 text-center"
-            >
-              📋 My Reservations
-            </Link>
-          </div>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">Recent Activity</h3>
-          <p className="text-gray-600">No recent activity yet.</p>
-        </div>
-      </main>
-    </div>
-  );
-}
