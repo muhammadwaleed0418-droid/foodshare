@@ -12,7 +12,8 @@ export async function POST(request: NextRequest) {
         {
           success: true,
           message: 'Login successful',
-          user: result.user,
+          redirect: 'redirect' in result ? result.redirect : undefined,
+          credentials: 'credentials' in result ? result.credentials : undefined,
         },
         { status: 200 }
       );
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: result.message || 'Login failed',
+          message: 'error' in result ? result.error : 'Login failed',
         },
         { status: 401 }
       );
