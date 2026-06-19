@@ -185,7 +185,7 @@ export const authConfig: NextAuthConfig = {
     async signIn({ user, account, profile, isNewUser }) {
       console.log(`🔐 [EVENT] User signed in: ${user?.email} (new: ${isNewUser})`);
     },
-    async signOut({ token }) {
+ async signOut() {
       console.log(`🔐 [EVENT] User signed out`);
     },
   },
