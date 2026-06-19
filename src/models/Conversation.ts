@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { IConversation } from '../types';
 
-export interface IConversationDocument extends IConversation, Document {}
+export interface IConversationDocument extends Omit<IConversation, '_id'>, Document {}
 
 const conversationSchema = new Schema<IConversationDocument>(
   {

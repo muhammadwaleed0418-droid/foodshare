@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { IReservation, ReservationStatus } from '../types';
 
-export interface IReservationDocument extends IReservation, Document {}
+export interface IReservationDocument extends Omit<IReservation, '_id'>, Document {}
 
 const reservationSchema = new Schema<IReservationDocument>(
   {
