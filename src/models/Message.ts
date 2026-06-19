@@ -10,13 +10,13 @@ const messageSchema = new Schema<IMessageDocument>(
       ref: 'User',
       required: [true, 'Sender ID is required'],
       index: true,
-    },
+    } as any,
     receiverId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'Receiver ID is required'],
       index: true,
-    },
+    } as any,
     content: {
       type: String,
       required: [true, 'Message content is required'],
@@ -38,13 +38,13 @@ const messageSchema = new Schema<IMessageDocument>(
       ref: 'Donation',
       default: null,
       index: true,
-    },
+    } as any,
     relatedReservationId: {
       type: Schema.Types.ObjectId,
       ref: 'Reservation',
       default: null,
       index: true,
-    },
+    } as any,
     attachments: {
       type: [String],
       default: [],

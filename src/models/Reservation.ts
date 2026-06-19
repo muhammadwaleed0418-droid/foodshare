@@ -10,13 +10,13 @@ const reservationSchema = new Schema<IReservationDocument>(
       ref: 'Donation',
       required: [true, 'Donation ID is required'],
       index: true,
-    },
+    } as any,
     receiverId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'Receiver ID is required'],
       index: true,
-    },
+    } as any,
     status: {
       type: String,
       enum: Object.values(ReservationStatus),

@@ -82,7 +82,7 @@ const donationSchema = new Schema<IDonationDocument>(
       ref: 'User',
       required: [true, 'Donor ID is required'],
       index: true,
-    },
+    } as any,
     images: {
       type: [String],
       default: [],

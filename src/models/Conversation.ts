@@ -15,7 +15,7 @@ const conversationSchema = new Schema<IConversationDocument>(
         },
         message: 'Conversation must have exactly 2 participants',
       },
-    },
+    } as any,
     lastMessage: {
       type: String,
       default: null,

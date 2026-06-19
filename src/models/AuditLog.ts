@@ -3,7 +3,7 @@ import { IAuditLog, AuditAction } from '../types';
 
 export interface IAuditLogDocument extends Omit<IAuditLog, '_id'>, Document {}
 
-const auditLogSchema = new Schema<IAuditLogDocument>(
+const auditLogSchema = new Schema(
   {
     action: {
       type: String,
